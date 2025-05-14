@@ -1,0 +1,221 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: Arial, sans-serif;
+  background-color: #f0f0f0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+}
+
+#app {
+  background-color: white;
+  padding: 2rem;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  max-width: 800px;
+  width: 100%;
+}
+
+/* Custom scrollbar */
+::-webkit-scrollbar { width: 8px; height: 8px; }
+::-webkit-scrollbar-track { background: #2d3748; }
+::-webkit-scrollbar-thumb { background: #4a5568; border-radius: 4px; }
+::-webkit-scrollbar-thumb:hover { background: #718096; }
+
+/* Game Output Styling */
+.game-output p { margin-bottom: 0.75rem; line-height: 1.6; }
+.game-output .narration { color: #a0aec0; font-style: italic; }
+.game-output .dialogue { color: #63b3ed; }
+.game-output .important { color: #f6e05e; font-weight: bold; }
+.game-output .error { color: #fc8181; }
+.game-output .success { color: #68d391; }
+.game-output .system { color: #9f7aea; }
+.game-output .spiritual-root { color: #f472b6; font-weight: bold; } 
+.game-output .class-info { color: #a78bfa; } 
+.game-output .qi-recovery { color: #60a5fa; } 
+.game-output .demonic { color: #7f1d1d; } 
+.game-output .loot { color: #facc15; } 
+.game-output .item-use { color: #34d399; } 
+.game-output .market { color: #fbbf24; } 
+.game-output .crafting { color: #a3e635; } 
+
+/* Combat Specific Text Styling */
+.combat-text-player-turn { color: #f6e05e; font-weight: bold; } 
+.combat-text-opponent-turn { color: #fca5a5; font-weight: bold; } 
+.combat-text-player-action { color: #68d391; } 
+.combat-text-opponent-action { color: #fc8181; } 
+.combat-text-narration { color: #a0aec0; font-style: italic;} 
+
+.action-button { transition: all 0.2s ease-in-out; }
+.action-button:hover:not(:disabled) { transform: translateY(-2px); box-shadow: 0 4px 10px rgba(0,0,0,0.2); }
+.action-button:disabled { opacity: 0.5; cursor: not-allowed; }
+.stat-value { min-width: 60px; display: inline-block; text-align: right; }
+
+/* Combat Interface Styling */
+#combat-interface { display: none; border: 1px solid #4a5568; border-radius: 0.5rem; padding: 1rem; margin-bottom:1rem; background-color: #2d3748; }
+.combatant-info { margin-bottom: 0.75rem; text-align: center; }
+.combatant-name { font-weight: bold; font-size: 1.1rem; margin-bottom: 0.25rem; margin-top: 0.5rem; }
+.health-bar-container { width: 100%; background-color: #4a5568; border-radius: 0.25rem; height: 24px; position: relative; border: 1px solid #718096; overflow: hidden; margin-top: 0.25rem; }
+.health-bar-fill { height: 100%; border-radius: 0.25rem; transition: width 0.3s ease-out; }
+.health-bar-player .health-bar-fill { background-color: #48bb78; }
+.health-bar-opponent .health-bar-fill { background-color: #f56565; }
+.health-bar-text { position: absolute; width: 100%; text-align: center; line-height: 24px; font-weight: bold; color: #e2e8f0; text-shadow: 1px 1px #1a202c; }
+#combat-action-text { min-height: 50px; text-align: center; }
+#combat-action-text p { margin-bottom: 0.25rem; line-height: 1.5; }
+
+/* Pixel Art Sprite Styling */
+.pixel-art-sprite {
+  width: 64px; height: 64px; border: 2px solid #a0aec0; margin: 0 auto 0.5rem auto; 
+  image-rendering: pixelated; display: grid; grid-template-columns: repeat(8, 1fr);
+  grid-template-rows: repeat(8, 1fr); box-shadow: 2px 2px 0px #1a202c; 
+}
+.player-sprite { background-color: #4299e1; }
+.player-sprite div { background-color: #63b3ed; } 
+.monster-sprite { background-color: #c53030; }
+.monster-sprite div { background-color: #e53e3e; } 
+
+/* Class Selection Styling */
+#class-selection-info { margin-top: 0.5rem; padding: 0.5rem; background-color: #2d3748; border-radius: 0.25rem; min-height: 80px;}
+#class-selection-info h3 { font-size: 1.1em; color: #f6e05e; margin-bottom: 0.25rem;}
+#class-selection-info p { font-size: 0.9em; color: #cbd5e0; margin-bottom: 0.25rem;}
+
+/* Market & Concoction Menu Styling */
+#market-menu, #market-listings-view, #concoction-menu { margin-top: 1rem; padding: 1rem; background-color: #2d3748; border-radius: 0.5rem; border: 1px solid #4a5568;}
+#market-menu h3, #market-listings-view h3, #concoction-menu h3 { font-size: 1.25em; color: #f6e05e; margin-bottom: 0.75rem; text-align: center;}
+.market-item-button, .concoction-recipe-button { display: block; width: 100%; text-align: left; }
+.market-listing-item { border-bottom: 1px solid #4a5568; padding: 0.75rem 0.5rem; margin-bottom: 0.5rem; }
+.market-listing-item:last-child { border-bottom: none; }
+.concoction-recipe-item { border: 1px solid #4a5568; padding: 0.75rem; margin-bottom: 0.75rem; border-radius: 0.25rem; background-color: #374151; }
+.concoction-recipe-item h4 { font-size: 1.1em; color: #fde047; margin-bottom: 0.25rem; }
+.concoction-recipe-item p { font-size: 0.9em; color: #d1d5db; margin-bottom: 0.1rem; }
+.concoction-ingredient-list { list-style-type: disc; margin-left: 1.5rem; margin-bottom: 0.25rem; }
+
+/* Chat Styling */
+.chat-message {
+  padding: 0.25rem 0.5rem;
+  margin-bottom: 0.25rem;
+  border-radius: 0.25rem;
+  line-height: 1.4;
+  word-wrap: break-word;
+}
+.chat-message .sender-name {
+  font-weight: bold;
+  color: #63b3ed;
+  margin-right: 0.25rem;
+}
+.chat-message .timestamp {
+  font-size: 0.75rem;
+  color: #a0aec0;
+  margin-left: 0.5rem;
+}
+.chat-message .message-text {
+  color: #e2e8f0;
+}
+.my-message { background-color: #374151; }
+.other-message { background-color: #4b5563; }
+
+/* Modal styles */
+.modal { display: none; position: fixed; z-index: 100; left: 0; top: 0; width: 100%; height: 100%; overflow: auto; background-color: rgba(0,0,0,0.6); padding-top: 60px; }
+.modal-content { background-color: #2d3748; margin: 5% auto; padding: 20px; border: 1px solid #4a5568; width: 80%; max-width: 500px; border-radius: 8px; text-align: center; }
+.modal-input { background-color: #4a5568; color: #e2e8f0; border: 1px solid #718096; padding: 10px; margin-top: 10px; margin-bottom: 15px; width: calc(100% - 22px); border-radius: 4px; }
+
+/* Inventory Grid Styling */
+#modal-inventory-grid-container {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(60px, 1fr));
+  gap: 8px;
+  padding: 8px;
+  max-height: 400px;
+  overflow-y: auto;
+  overflow-x: hidden;
+  background-color: #2d3748;
+  border: 1px solid #4a5568;
+  border-radius: 0.25rem;
+}
+
+.inventory-slot {
+  width: 60px; 
+  height: 60px;
+  background-image: url('https://i.imgur.com/H5k1fXg.png');
+  background-size: calc(3 * 60px) calc(3 * 60px);
+  background-repeat: no-repeat;
+  background-position: 0 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  cursor: default;
+  border-radius: 3px; 
+  overflow: hidden;
+  image-rendering: pixelated; 
+}
+
+.inventory-slot.has-item {
+  cursor: pointer;
+}
+.inventory-slot.has-item:hover {
+  outline: 2px solid #f6e05e; 
+  z-index: 10; 
+}
+
+.inventory-slot-icon {
+  width: 32px; 
+  height: 32px;
+  margin-bottom: 1px;
+  background-size: contain; 
+  background-repeat: no-repeat;
+  background-position: center;
+  image-rendering: pixelated;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.5em; 
+  color: #cbd5e0;
+  text-shadow: 1px 1px #1a202c;
+}
+
+.inventory-slot-name {
+  font-size: 0.60em; 
+  color: #374151;
+  text-align: center;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  width: 90%; 
+  line-height: 1;
+  padding: 0 1px;
+  font-weight: 500;
+}
+
+.inventory-slot-quantity {
+  position: absolute;
+  bottom: 1px;
+  right: 2px;
+  background-color: rgba(26, 32, 44, 0.85); 
+  color: #f6e05e; 
+  padding: 0px 3px;
+  border-radius: 3px;
+  font-size: 0.55em;
+  font-weight: bold;
+  line-height: 1.2;
+}
+
+@media (max-width: 768px) {
+  .main-content-area { flex-direction: column; }
+  .stats-panel { order: -1; width: 100%; margin-bottom: 1rem; border-right: none; border-bottom: 1px solid #4a5568; padding-bottom: 1rem; }
+  .game-output-container { width: 100%; padding-left: 0; }
+  .action-buttons-container { justify-content: center; flex-wrap: wrap; }
+  #combat-specific-actions { justify-content: center; flex-wrap: wrap; } 
+  .action-button { margin: 0.25rem; }
+}
