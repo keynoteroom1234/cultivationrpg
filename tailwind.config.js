@@ -5,7 +5,15 @@ export default {
     "./src/**/*.{js,ts,jsx,tsx}",
   ],
   theme: {
-    extend: {},
+    extend: {
+      colors: {
+        // You can extend Tailwind's color palette here if needed
+      },
+      fontFamily: {
+        inter: ['Inter', 'sans-serif'],
+        notoSerifSC: ['"Noto Serif SC"', 'serif'],
+      }
+    },
   },
   plugins: [],
 }

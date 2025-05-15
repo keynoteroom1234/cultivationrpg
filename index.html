@@ -1,12 +1,123 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Cultivation RPG</title>
-  </head>
-  <body>
-    <div id="app"></div>
-    <script type="module" src="/main.js"></script>
-  </body>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Path of the Ascendant Dragon - Wuxia RPG</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700&family=Noto+Serif+SC:wght@400;700&display=swap" rel="stylesheet">
+    <!-- Tailwind CSS will be injected by Vite from style.css -->
+    <link rel="icon" type="image/svg+xml" href="/vite.svg" /> <!-- Optional: Vite default icon -->
+</head>
+<body class="bg-gray-900 text-gray-300">
+
+    <div class="game-container p-4 md:p-6">
+        <header class="mb-4 md:mb-6 text-center">
+            <h1 class="text-3xl md:text-4xl font-bold text-yellow-400 font-notoSerifSC">Path of the Ascendant Dragon</h1>
+            <p class="text-sm text-gray-500">A Wuxia Cultivation RPG</p>
+        </header>
+
+        <main class="main-content-area flex flex-grow min-h-0 md:space-x-4">
+            <aside class="stats-panel w-full md:w-1/4 bg-gray-800 p-4 rounded-lg shadow-xl border border-gray-700 h-full overflow-y-auto">
+                <h2 class="text-xl font-semibold mb-3 text-yellow-300 border-b border-gray-700 pb-2">Cultivator Profile</h2>
+                <div id="player-stats">
+                    <div class="mb-2"><strong>Name:</strong> <span id="stat-name" class="text-blue-300">Nameless One</span></div>
+                    <div class="mb-2"><strong>Class:</strong> <span id="stat-class" class="text-teal-300">Undetermined</span></div>
+                    <div class="mb-2"><strong>Realm:</strong> <span id="stat-realm" class="text-purple-300">Mortal</span></div>
+                    <div class="mb-2"><strong>Level:</strong> <span id="stat-level" class="text-green-300 stat-value">0</span></div>
+                    <div class="mb-2"><strong>Spiritual Root:</strong> <span id="stat-spiritual-root" class="text-pink-400">Undetermined</span></div>
+                    <div class="mb-2"><strong>Progress:</strong> <span id="stat-progress" class="text-green-400 stat-value">0/100</span> XP</div>
+                    <div class="mb-2"><strong>Health:</strong> <span id="stat-health" class="text-red-400 stat-value">100/100</span></div>
+                    <div class="mb-2"><strong>Spiritual Energy:</strong> <span id="stat-qi" class="text-blue-400 stat-value">50/50</span></div>
+                    <div class="mb-2"><strong>Attack:</strong> <span id="stat-attack" class="text-orange-400 stat-value">10</span></div>
+                    <div class="mb-2"><strong>Defense:</strong> <span id="stat-defense" class="text-teal-400 stat-value">5</span></div>
+                    <div class="mb-2"><strong>Spirit Stones:</strong> <span id="stat-spirit-stones" class="text-yellow-400 stat-value">0</span></div>
+                    <div id="stat-demonic-corruption-container" class="mb-2" style="display: none;">
+                        <strong>Demonic Corruption:</strong> <span id="stat-demonic-corruption" class="text-red-700 stat-value">0</span>
+                    </div>
+                    <div class="mb-2"><strong>Sect:</strong> <span id="stat-sect" class="text-indigo-300">None</span></div>
+                    <div class="mb-2"><strong>Weapon:</strong> <span id="stat-weapon" class="text-gray-400">Unarmed</span></div>
+                </div>
+            </aside>
+
+            <section class="game-output-container w-full md:w-3/4 flex flex-col bg-gray-800 p-4 rounded-lg shadow-xl border border-gray-700">
+                <div id="combat-interface">
+                    <div class="combatant-info" id="combat-player-ui">
+                        <div id="combat-player-sprite" class="pixel-art-sprite player-sprite">
+                            <div style="grid-column: 4 / span 2; grid-row: 2;"></div> <div style="grid-column: 3 / span 4; grid-row: 3;"></div>
+                            <div style="grid-column: 4 / span 2; grid-row: 4;"></div> <div style="grid-column: 3 / span 1; grid-row: 5;"></div>
+                            <div style="grid-column: 6 / span 1; grid-row: 5;"></div> <div style="grid-column: 2 / span 1; grid-row: 6;"></div>
+                            <div style="grid-column: 7 / span 1; grid-row: 6;"></div>
+                        </div>
+                        <div id="combat-player-name" class="combatant-name text-blue-300">Player</div>
+                        <div class="health-bar-container health-bar-player">
+                            <div id="combat-player-hb-fill" class="health-bar-fill"></div>
+                            <span id="combat-player-hp-text" class="health-bar-text">100/100 HP</span>
+                        </div>
+                    </div>
+                    <div class="combatant-info" id="combat-opponent-ui">
+                        <div id="combat-opponent-sprite" class="pixel-art-sprite monster-sprite">
+                             <div style="grid-column: 3 / span 4; grid-row: 2;"></div> <div style="grid-column: 2 / span 1; grid-row: 3;"></div>
+                             <div style="grid-column: 7 / span 1; grid-row: 3;"></div> <div style="grid-column: 3 / span 1; grid-row: 4; background-color: #fbd38d;"></div> 
+                             <div style="grid-column: 6 / span 1; grid-row: 4; background-color: #fbd38d;"></div> <div style="grid-column: 4 / span 2; grid-row: 6;"></div>
+                        </div>
+                        <div id="combat-opponent-name" class="combatant-name text-red-300">Opponent</div>
+                        <div class="health-bar-container health-bar-opponent">
+                            <div id="combat-opponent-hb-fill" class="health-bar-fill"></div>
+                            <span id="combat-opponent-hp-text" class="health-bar-text">100/100 HP</span>
+                        </div>
+                    </div>
+                    <div id="combat-action-text" class="mt-4 text-sm"></div>
+                    <div id="combat-specific-actions" class="flex flex-wrap gap-2 justify-center mt-4"></div>
+                </div>
+                
+                <div id="class-selection-info" class="mb-4" style="display: none;"></div>
+                <div id="inventory-menu" class="mb-4" style="display:none;"><h3>Old Inventory Menu (if used)</h3></div> 
+                <div id="market-menu" class="mb-4" style="display:none;"></div>
+                <div id="market-listings-view" class="mb-4" style="display:none;"></div>
+                <div id="concoction-menu" class="mb-4" style="display:none;"></div>
+
+
+                <h2 class="text-xl font-semibold mb-3 text-yellow-300 sr-only">Game Log</h2>
+                <div id="game-output" class="game-output flex-grow overflow-y-auto mb-4 pr-2"></div>
+                 <div id="action-buttons-container" class="action-buttons-container flex flex-wrap gap-2 justify-start mt-auto pt-2 border-t border-gray-700"></div>
+            </section>
+        </main>
+
+        <footer class="chat-and-input-area mt-4 md:mt-6 flex flex-col">
+            <div id="chat-log-container" class="w-full h-40 bg-gray-800 p-2 rounded-t-lg shadow-xl border border-b-0 border-gray-700 overflow-y-auto mb-0">
+                <!-- Chat messages will appear here -->
+            </div>
+            <div class="input-area p-2 bg-gray-800 rounded-b-lg shadow-xl border border-t-0 border-gray-700 flex items-center gap-2" style="min-height: 58px;">
+                <input type="text" id="chat-input" class="flex-grow bg-gray-700 text-gray-300 border border-gray-600 rounded-md p-2 focus:ring-blue-500 focus:border-blue-500" placeholder="Login to chat..." disabled>
+                <button id="chat-send-button" class="action-button bg-blue-600 hover:bg-blue-700 text-white font-semibold py-2 px-4 rounded-lg shadow-md" disabled>Send</button>
+            </div>
+        </footer>
+    </div>
+
+    <!-- Input Modal (for generic input) -->
+    <div id="inputModal" class="modal">
+        <div class="modal-content">
+            <p id="modalPrompt" class="text-lg mb-3"></p>
+            <input type="text" id="modalInputField" class="modal-input">
+            <input type="password" id="modalPasswordInputField" class="modal-input" style="display:none;">
+            <button id="modalSubmitButton" class="action-button bg-green-600 hover:bg-green-700 text-white font-semibold py-2 px-4 rounded-lg shadow-md">Submit</button>
+            <button id="modalCancelButton" class="action-button bg-red-600 hover:bg-red-700 text-white font-semibold py-2 px-4 rounded-lg shadow-md ml-2">Cancel</button>
+        </div>
+    </div>
+
+    <!-- Grid Inventory Modal -->
+    <div id="grid-inventory-modal" class="fixed inset-0 bg-black bg-opacity-75 flex items-center justify-center p-4" style="display: none;">
+        <div id="grid-inventory-modal-content" class="bg-gray-800 p-4 md:p-6 rounded-lg shadow-xl border border-gray-700 w-full max-w-lg md:max-w-2xl">
+            <div class="flex justify-between items-center mb-4">
+                <h2 class="text-2xl font-semibold text-yellow-300 font-notoSerifSC">Inventory</h2>
+                <button id="close-inventory-modal-button" class="text-gray-400 hover:text-white text-2xl font-bold">&times;</button>
+            </div>
+            <div id="modal-inventory-grid-container">
+                <!-- Slots will be dynamically generated here -->
+            </div>
+        </div>
+    </div>
+
+    <script type="module" src="/src/main.js"></script>
+</body>
 </html>

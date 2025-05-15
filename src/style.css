@@ -2,220 +2,214 @@
 @tailwind components;
 @tailwind utilities;
 
-* {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
-}
-
-body {
-  font-family: Arial, sans-serif;
-  background-color: #f0f0f0;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  min-height: 100vh;
-}
-
-#app {
-  background-color: white;
-  padding: 2rem;
-  border-radius: 8px;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-  max-width: 800px;
-  width: 100%;
-}
-
 /* Custom scrollbar */
 ::-webkit-scrollbar { width: 8px; height: 8px; }
 ::-webkit-scrollbar-track { background: #2d3748; }
 ::-webkit-scrollbar-thumb { background: #4a5568; border-radius: 4px; }
 ::-webkit-scrollbar-thumb:hover { background: #718096; }
 
+body { 
+    font-family: 'Inter', sans-serif; 
+    @apply bg-gray-900 text-gray-300 flex flex-col min-h-screen m-0;
+}
+.game-container { 
+    @apply flex flex-col flex-grow max-w-5xl mx-auto w-full;
+}
+
 /* Game Output Styling */
-.game-output p { margin-bottom: 0.75rem; line-height: 1.6; }
-.game-output .narration { color: #a0aec0; font-style: italic; }
-.game-output .dialogue { color: #63b3ed; }
-.game-output .important { color: #f6e05e; font-weight: bold; }
-.game-output .error { color: #fc8181; }
-.game-output .success { color: #68d391; }
-.game-output .system { color: #9f7aea; }
-.game-output .spiritual-root { color: #f472b6; font-weight: bold; } 
-.game-output .class-info { color: #a78bfa; } 
-.game-output .qi-recovery { color: #60a5fa; } 
-.game-output .demonic { color: #7f1d1d; } 
-.game-output .loot { color: #facc15; } 
-.game-output .item-use { color: #34d399; } 
-.game-output .market { color: #fbbf24; } 
-.game-output .crafting { color: #a3e635; } 
+.game-output p { 
+    @apply mb-3 leading-relaxed;
+}
+.game-output .narration { @apply text-gray-400 italic; }
+.game-output .dialogue { @apply text-blue-400; }
+.game-output .important { @apply text-yellow-300 font-bold; }
+.game-output .error { @apply text-red-400; }
+.game-output .success { @apply text-green-400; }
+.game-output .system { @apply text-purple-400; }
+.game-output .spiritual-root { @apply text-pink-400 font-bold; }
+.game-output .class-info { @apply text-purple-300; }
+.game-output .qi-recovery { @apply text-blue-400; }
+.game-output .demonic { @apply text-red-800; }
+.game-output .loot { @apply text-yellow-400; }
+.game-output .item-use { @apply text-green-400; }
+.game-output .market { @apply text-yellow-500; }
+.game-output .crafting { @apply text-lime-400; }
 
 /* Combat Specific Text Styling */
-.combat-text-player-turn { color: #f6e05e; font-weight: bold; } 
-.combat-text-opponent-turn { color: #fca5a5; font-weight: bold; } 
-.combat-text-player-action { color: #68d391; } 
-.combat-text-opponent-action { color: #fc8181; } 
-.combat-text-narration { color: #a0aec0; font-style: italic;} 
+.combat-text-player-turn { @apply text-yellow-300 font-bold; }
+.combat-text-opponent-turn { @apply text-red-300 font-bold; }
+.combat-text-player-action { @apply text-green-400; }
+.combat-text-opponent-action { @apply text-red-400; }
+.combat-text-narration { @apply text-gray-400 italic; }
 
-.action-button { transition: all 0.2s ease-in-out; }
-.action-button:hover:not(:disabled) { transform: translateY(-2px); box-shadow: 0 4px 10px rgba(0,0,0,0.2); }
-.action-button:disabled { opacity: 0.5; cursor: not-allowed; }
-.stat-value { min-width: 60px; display: inline-block; text-align: right; }
+.action-button { 
+    @apply transition-all duration-200 ease-in-out;
+}
+.action-button:hover:not(:disabled) { 
+    @apply transform -translate-y-0.5 shadow-lg;
+}
+.action-button:disabled { 
+    @apply opacity-50 cursor-not-allowed;
+}
+.stat-value { 
+    @apply min-w-[60px] inline-block text-right;
+}
 
 /* Combat Interface Styling */
-#combat-interface { display: none; border: 1px solid #4a5568; border-radius: 0.5rem; padding: 1rem; margin-bottom:1rem; background-color: #2d3748; }
-.combatant-info { margin-bottom: 0.75rem; text-align: center; }
-.combatant-name { font-weight: bold; font-size: 1.1rem; margin-bottom: 0.25rem; margin-top: 0.5rem; }
-.health-bar-container { width: 100%; background-color: #4a5568; border-radius: 0.25rem; height: 24px; position: relative; border: 1px solid #718096; overflow: hidden; margin-top: 0.25rem; }
-.health-bar-fill { height: 100%; border-radius: 0.25rem; transition: width 0.3s ease-out; }
-.health-bar-player .health-bar-fill { background-color: #48bb78; }
-.health-bar-opponent .health-bar-fill { background-color: #f56565; }
-.health-bar-text { position: absolute; width: 100%; text-align: center; line-height: 24px; font-weight: bold; color: #e2e8f0; text-shadow: 1px 1px #1a202c; }
-#combat-action-text { min-height: 50px; text-align: center; }
-#combat-action-text p { margin-bottom: 0.25rem; line-height: 1.5; }
+#combat-interface { 
+    display: none;
+    @apply border border-gray-600 rounded-lg p-4 mb-4 bg-gray-700;
+}
+.combatant-info { 
+    @apply mb-3 text-center;
+}
+.combatant-name { 
+    @apply font-bold text-lg mb-1 mt-2;
+}
+.health-bar-container { 
+    @apply w-full bg-gray-600 rounded h-6 relative border border-gray-500 overflow-hidden mt-1;
+}
+.health-bar-fill { 
+    @apply h-full rounded transition-all duration-300 ease-out;
+}
+.health-bar-player .health-bar-fill { @apply bg-green-500; }
+.health-bar-opponent .health-bar-fill { @apply bg-red-500; }
+.health-bar-text { 
+    @apply absolute w-full text-center leading-6 font-bold text-gray-200;
+    text-shadow: 1px 1px #1a202c;
+}
+#combat-action-text { 
+    @apply min-h-[50px] text-center;
+}
+#combat-action-text p { 
+    @apply mb-1 leading-normal;
+}
 
 /* Pixel Art Sprite Styling */
 .pixel-art-sprite {
-  width: 64px; height: 64px; border: 2px solid #a0aec0; margin: 0 auto 0.5rem auto; 
-  image-rendering: pixelated; display: grid; grid-template-columns: repeat(8, 1fr);
-  grid-template-rows: repeat(8, 1fr); box-shadow: 2px 2px 0px #1a202c; 
+    width: 64px; height: 64px; 
+    @apply border-2 border-gray-400 mx-auto mb-2 grid grid-cols-8 grid-rows-8 shadow-md;
+    image-rendering: pixelated; 
 }
-.player-sprite { background-color: #4299e1; }
-.player-sprite div { background-color: #63b3ed; } 
-.monster-sprite { background-color: #c53030; }
-.monster-sprite div { background-color: #e53e3e; } 
+.player-sprite { @apply bg-blue-500; }
+.player-sprite div { @apply bg-blue-400; } 
+.monster-sprite { @apply bg-red-700; }
+.monster-sprite div { @apply bg-red-600; } 
 
 /* Class Selection Styling */
-#class-selection-info { margin-top: 0.5rem; padding: 0.5rem; background-color: #2d3748; border-radius: 0.25rem; min-height: 80px;}
-#class-selection-info h3 { font-size: 1.1em; color: #f6e05e; margin-bottom: 0.25rem;}
-#class-selection-info p { font-size: 0.9em; color: #cbd5e0; margin-bottom: 0.25rem;}
+#class-selection-info { 
+    @apply mt-2 p-2 bg-gray-700 rounded min-h-[80px];
+}
+#class-selection-info h3 { @apply text-lg text-yellow-300 mb-1; }
+#class-selection-info p { @apply text-sm text-gray-300 mb-1; }
 
 /* Market & Concoction Menu Styling */
-#market-menu, #market-listings-view, #concoction-menu { margin-top: 1rem; padding: 1rem; background-color: #2d3748; border-radius: 0.5rem; border: 1px solid #4a5568;}
-#market-menu h3, #market-listings-view h3, #concoction-menu h3 { font-size: 1.25em; color: #f6e05e; margin-bottom: 0.75rem; text-align: center;}
-.market-item-button, .concoction-recipe-button { display: block; width: 100%; text-align: left; }
-.market-listing-item { border-bottom: 1px solid #4a5568; padding: 0.75rem 0.5rem; margin-bottom: 0.5rem; }
-.market-listing-item:last-child { border-bottom: none; }
-.concoction-recipe-item { border: 1px solid #4a5568; padding: 0.75rem; margin-bottom: 0.75rem; border-radius: 0.25rem; background-color: #374151; }
-.concoction-recipe-item h4 { font-size: 1.1em; color: #fde047; margin-bottom: 0.25rem; }
-.concoction-recipe-item p { font-size: 0.9em; color: #d1d5db; margin-bottom: 0.1rem; }
-.concoction-ingredient-list { list-style-type: disc; margin-left: 1.5rem; margin-bottom: 0.25rem; }
+#market-menu, #market-listings-view, #concoction-menu { 
+    @apply mt-4 p-4 bg-gray-700 rounded-lg border border-gray-600;
+}
+#market-menu h3, #market-listings-view h3, #concoction-menu h3 { 
+    @apply text-xl text-yellow-300 mb-3 text-center;
+}
+.market-item-button, .concoction-recipe-button { 
+    @apply block w-full text-left;
+}
+.market-listing-item { 
+    @apply border-b border-gray-600 py-3 px-2 mb-2;
+}
+.market-listing-item:last-child { @apply border-b-0; }
+
+.concoction-recipe-item { 
+    @apply border border-gray-600 p-3 mb-3 rounded bg-gray-800;
+}
+.concoction-recipe-item h4 { @apply text-lg text-yellow-300 mb-1; }
+.concoction-recipe-item p { @apply text-sm text-gray-300 mb-0.5; }
+.concoction-ingredient-list { @apply list-disc ml-6 mb-1; }
 
 /* Chat Styling */
 .chat-message {
-  padding: 0.25rem 0.5rem;
-  margin-bottom: 0.25rem;
-  border-radius: 0.25rem;
-  line-height: 1.4;
-  word-wrap: break-word;
+    @apply py-1 px-2 mb-1 rounded text-sm break-words;
 }
 .chat-message .sender-name {
-  font-weight: bold;
-  color: #63b3ed;
-  margin-right: 0.25rem;
+    @apply font-bold text-blue-400 mr-1;
 }
 .chat-message .timestamp {
-  font-size: 0.75rem;
-  color: #a0aec0;
-  margin-left: 0.5rem;
+    @apply text-xs text-gray-400 ml-2;
 }
 .chat-message .message-text {
-  color: #e2e8f0;
+    @apply text-gray-200;
 }
-.my-message { background-color: #374151; }
-.other-message { background-color: #4b5563; }
+.my-message { @apply bg-gray-800; }
+.other-message { @apply bg-gray-600; }
 
-/* Modal styles */
-.modal { display: none; position: fixed; z-index: 100; left: 0; top: 0; width: 100%; height: 100%; overflow: auto; background-color: rgba(0,0,0,0.6); padding-top: 60px; }
-.modal-content { background-color: #2d3748; margin: 5% auto; padding: 20px; border: 1px solid #4a5568; width: 80%; max-width: 500px; border-radius: 8px; text-align: center; }
-.modal-input { background-color: #4a5568; color: #e2e8f0; border: 1px solid #718096; padding: 10px; margin-top: 10px; margin-bottom: 15px; width: calc(100% - 22px); border-radius: 4px; }
-
-/* Inventory Grid Styling */
+/* Modal styles (generic and input modal) */
+.modal { 
+    display: none;
+    @apply fixed z-[100] left-0 top-0 w-full h-full overflow-auto bg-black/60 pt-[60px] flex items-start justify-center;
+}
+.modal-content { 
+    @apply bg-gray-700 mx-auto my-[5%] p-5 border border-gray-600 w-4/5 max-w-md rounded-lg text-center;
+}
+.modal-input { 
+    @apply bg-gray-600 text-gray-200 border border-gray-500 p-2.5 mt-2.5 mb-4 w-full rounded;
+}
+   
+/* Inventory Grid Styling (reused for modal) */
 #modal-inventory-grid-container {
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(60px, 1fr));
-  gap: 8px;
-  padding: 8px;
-  max-height: 400px;
-  overflow-y: auto;
-  overflow-x: hidden;
-  background-color: #2d3748;
-  border: 1px solid #4a5568;
-  border-radius: 0.25rem;
+    @apply grid gap-2 p-2 max-h-[400px] overflow-y-auto overflow-x-hidden bg-gray-700 border border-gray-600 rounded;
+    grid-template-columns: repeat(auto-fill, minmax(60px, 1fr));
 }
 
 .inventory-slot {
-  width: 60px; 
-  height: 60px;
-  background-image: url('https://i.imgur.com/H5k1fXg.png');
-  background-size: calc(3 * 60px) calc(3 * 60px);
-  background-repeat: no-repeat;
-  background-position: 0 0;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  position: relative;
-  cursor: default;
-  border-radius: 3px; 
-  overflow: hidden;
-  image-rendering: pixelated; 
+    width: 60px; 
+    height: 60px;
+    background-image: url('/assets/inventory_slot_frame.png');
+    background-size: calc(3 * 60px) calc(3 * 60px);
+    background-repeat: no-repeat;
+    background-position: 0 0;
+    
+    @apply flex flex-col items-center justify-center relative rounded-[3px] overflow-hidden cursor-default;
+    image-rendering: pixelated; 
 }
 
 .inventory-slot.has-item {
-  cursor: pointer;
+    @apply cursor-pointer;
 }
 .inventory-slot.has-item:hover {
-  outline: 2px solid #f6e05e; 
-  z-index: 10; 
+    @apply outline-2 outline-yellow-300 z-10;
 }
 
 .inventory-slot-icon {
-  width: 32px; 
-  height: 32px;
-  margin-bottom: 1px;
-  background-size: contain; 
-  background-repeat: no-repeat;
-  background-position: center;
-  image-rendering: pixelated;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-size: 1.5em; 
-  color: #cbd5e0;
-  text-shadow: 1px 1px #1a202c;
+    width: 32px; 
+    height: 32px;
+    @apply mb-px bg-contain bg-no-repeat bg-center flex items-center justify-center text-2xl text-gray-300;
+    image-rendering: pixelated;
+    text-shadow: 1px 1px #1a202c;
 }
 
 .inventory-slot-name {
-  font-size: 0.60em; 
-  color: #374151;
-  text-align: center;
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
-  width: 90%; 
-  line-height: 1;
-  padding: 0 1px;
-  font-weight: 500;
+    font-size: 0.60em; 
+    @apply text-gray-800 text-center whitespace-nowrap overflow-hidden w-[90%] leading-none px-px font-medium;
+    text-overflow: ellipsis;
 }
 
 .inventory-slot-quantity {
-  position: absolute;
-  bottom: 1px;
-  right: 2px;
-  background-color: rgba(26, 32, 44, 0.85); 
-  color: #f6e05e; 
-  padding: 0px 3px;
-  border-radius: 3px;
-  font-size: 0.55em;
-  font-weight: bold;
-  line-height: 1.2;
+    @apply absolute bottom-px right-0.5 bg-gray-900/85 text-yellow-300 px-1 rounded-[3px] text-[0.55em] font-bold leading-tight;
 }
 
+/* Inventory Modal Specific Styles */
+#grid-inventory-modal {
+    @apply z-[200];
+}
+#grid-inventory-modal-content {
+     @apply bg-gray-700;
+}
+
+/* Responsive adjustments (Tailwind handles most of this with responsive prefixes like md:) */
 @media (max-width: 768px) {
-  .main-content-area { flex-direction: column; }
-  .stats-panel { order: -1; width: 100%; margin-bottom: 1rem; border-right: none; border-bottom: 1px solid #4a5568; padding-bottom: 1rem; }
-  .game-output-container { width: 100%; padding-left: 0; }
-  .action-buttons-container { justify-content: center; flex-wrap: wrap; }
-  #combat-specific-actions { justify-content: center; flex-wrap: wrap; } 
-  .action-button { margin: 0.25rem; }
+    .main-content-area { @apply flex-col; }
+    .stats-panel { @apply order-first w-full mb-4 border-r-0 border-b border-gray-600 pb-4; }
+    .game-output-container { @apply w-full pl-0; }
+    .action-buttons-container { @apply justify-center flex-wrap; }
+    #combat-specific-actions { @apply justify-center flex-wrap; } 
+    .action-button { @apply m-1; }
 }
