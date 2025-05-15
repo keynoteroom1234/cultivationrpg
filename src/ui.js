@@ -64,5 +64,3 @@ export function setModalResolve(resolve) {
 // export function displayMessage(text, type = '') {
 //     // ... implementation ...
 // }
-
-export { modalResolve }
