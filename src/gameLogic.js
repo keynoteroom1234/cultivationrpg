@@ -538,7 +538,7 @@ class Player extends Character {
             spiritStoneFragment: 0, spiritStones: 0,
             minorHealingPill: 0, minorQiPill: 0,
             roughSword: 0, minorFireTalisman: 0,
-            jadeleafGrass: 0, crimsonSpiritBerry: 0, soothingRainPetal: 0,
+            jadeleafGrass: 0, crimsonSpiritBerry:  0, soothingRainPetal: 0,
             moondewFlower: 0, earthrootGinseng: 0, skyLotusBud: 0,
             whisperingLeaf: 0, radiantSunfruit: 0, cloudmossVine: 0,
             spiritglowMushroom: 0,
@@ -1355,7 +1355,8 @@ export const Game = {
                     quantity: listingData.quantity - quantityToBuy,
                     status: (listingData.quantity - quantityToBuy === 0) ? "sold" : "active"
                 });
-                const buyerRef = doc(db, "players", buyer.playerId);
+                const buyerRef = doc(db, "players", buyer.playerI
+d);
                 transaction.update(buyerRef, { resources: newBuyerResources });
                 transaction.update(sellerRef, { resources: newSellerResources });
 
@@ -2365,48 +2366,4 @@ export const Game = {
             }
 
             if (elixirName !== "Basic Qi Recovery Pill" && !Game.ITEM_DATA[recipeItemKey]) {
-                Game.ITEM_DATA[recipeItemKey] = {
-                    name: `Recipe: ${elixirName}`,
-                    description: `Teaches the method to concoct ${elixirName}. Ingredients: ${ingredientsStr.replace(/\s\+\s/g, ', ')}.`,
-                    type: "recipe",
-                    gameAsset: 'recipe.png', 
-                    learnsRecipeKey: recipeKey, 
-                    effect: function(player) { 
-                        if (!player.knownRecipes) player.knownRecipes = [];
-                        const recipeKeyToLearn = this.learnsRecipeKey; 
-                        if (!player.knownRecipes.includes(recipeKeyToLearn)) {
-                            player.knownRecipes.push(recipeKeyToLearn);
-                            displayMessage(`You learned the recipe for ${Game.PILL_RECIPES[recipeKeyToLearn].name}!`, "success");
-                        } else {
-                            displayMessage(`You already know the recipe for ${Game.PILL_RECIPES[recipeKeyToLearn].name}.`, "narration");
-                        }
-                        player.resources[recipeItemKey]--; 
-                    }
-                };
-            }
-        }
-    }
-}; 
-
-const pillCsvData = `Elixir Name,Ingredients,Use
-Basic Qi Recovery Pill,Jadeleaf Grass + Crimson Spirit Berry,Restores a small amount of Qi for Qi Refining cultivators.
-Vitality Rejuvenation Pill,Moondew Flower + Earthroot Ginseng,Heals minor injuries and restores stamina quickly.
-Mind-Calming Elixir,Soothing Rain Petal + Whispering Leaf,Clears mental fatigue and stabilizes Qi flow.
-Advanced Spirit Pill,Sky Lotus Bud + Spiritglow Mushroom,Restores large amounts of Qi and spiritual health for Core cultivators.
-Nascent Soul Vital Pill,Cloudmoss Vine + Radiant Sunfruit,High-grade healing and Qi replenishment for Nascent Soul stage cultivators.
-Foundation Establishment Pill,Breakthrough Vine + Soothing Rain Petal,Assists Qi Refining cultivators in establishing a stable foundation.
-Golden Core Nine Revolutions Pill,Dragonbone Fern + Spiritglow Mushroom + Earthroot Ginseng,Supports the formation of a perfect golden core with enhanced spiritual potential.
-Nascent Soul Unification Pill,Phoenixblood Herb + Ascension Orchid,Facilitates smooth transition from Core Formation to Nascent Soul realm.
-Soul Formation Heaven Pill,Heavenpierce Root + Lunar Bloom,Required to survive the soul tribulation and form the divine soul.
-Transcendence Void Elixir,Voidberry Thorn + ImmortalDustleaf,Enables Soul Formation experts to ascend to the Transcendent realm.
-Starforge Strength Pill,Starforge Petal + Stoneheart Root,Permanently increases physical strength and endurance.
-Spirit-Eye Elixir,Spirit-Eye Flower + Heartblossom Bud,"Improves spiritual perception, range of sight, and soul awareness."
-Agility Surge Pill,Silverstorm Leaf + GoldenDantian Fruit,Boosts movement speed and cultivator evasion skills.
-Flame Infusion Pill,Blackflame Ginseng + Frostmarrow Moss,Enhances fire affinity and provides resistance to ice and soul damage.
-Balance Harmonization Pill,Harmonizing Bellvine + Eye of the Ancients,Balances chaotic elemental Qi and enhances technique comprehension.`;
-
-// Make Game object globally accessible for inline HTML onclicks
-// This is a temporary measure for easier migration. Ideally, all event listeners
-// should be set up in JavaScript.
-window.Game = Game;
-```
+                Game.

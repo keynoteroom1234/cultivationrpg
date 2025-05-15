@@ -53,7 +53,8 @@ export const uiElements = {
     chatSendButton: document.getElementById('chat-send-button'),
 };
 
-export let modalResolve = null; // Keep track of the modal's promise resolver
+// Keep track of the modal's promise resolver
+export let modalResolve = null;
 
 export function setModalResolve(resolve) {
     modalResolve = resolve;
@@ -64,5 +65,3 @@ export function setModalResolve(resolve) {
 // export function displayMessage(text, type = '') {
 //     // ... implementation ...
 // }
-
-export { modalResolve }
